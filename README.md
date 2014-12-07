@@ -6,7 +6,7 @@ SSX is SSH on colorful xterm.
 Description
 -----------
 
-SSX uses consistent colors for the same hostname, so that it is easier to navigate accross different windows with different remote shells. No color configuration is required: colors are generated from the hostname's string hash.
+SSX uses consistent colors for the same hostname, so that it is easier to navigate accross different windows with different remote shells. No color configuration is required: colors selection is based on the hash of the hostname string.
 
 Usage
 -----

@@ -11,15 +11,51 @@ require 'zlib'
 DEFAULT_FONT     = "9x15"
 DEFAULT_GEOMETRY = "120x25"
 
-FG_COLORS = %w[White Yellow White Yellow White]
-BG_COLORS = %w[
-                rgb:15/15/15
-                rgb:46/46/46
-                DarkBlue
-                rgb:10/10/30
-                rgb:10/30/50
-              ]
+# Base colors from which color combinations are created.
+FG_BASE = %w[
+              White
+              Yellow
+            ]
 
+BG_BASE = %w[
+                rgb:0/0/0
+                rgb:15/15/15
+                rgb:30/30/30
+                rgb:45/45/45
+                rgb:60/60/60
+                rgb:75/75/75
+
+                rgb:30/0/0
+                rgb:45/0/0
+                rgb:60/0/0
+                rgb:75/0/0
+                
+                rgb:0/30/0
+                rgb:0/45/0
+                rgb:0/60/0
+                rgb:0/75/0
+
+                rgb:0/0/30
+                rgb:0/0/45
+                rgb:0/0/60
+                rgb:0/0/75
+
+                rgb:0/30/30
+                rgb:0/45/45
+                rgb:0/60/60
+                rgb:0/75/75
+
+                rgb:30/30/0
+                rgb:45/45/0
+                rgb:60/60/0
+                rgb:75/75/0
+
+                rgb:30/0/30
+                rgb:45/0/45
+                rgb:60/0/60
+                rgb:75/0/75
+
+            ]
 
 # This method maps hostname to pair of colors
 # Given a hostname (string), and two arrays containing color names
@@ -55,8 +91,26 @@ def extract_hostname_from_args args
 end
 
 
+
+# Generate all possible combinations between fg_base and bg_base colors.
+# Returns two arrays of the same size, first contains fg colors, second
+# contains bg colors.
+def generate_color_combinations fg_base, bg_base
+  combinations = fg_base.product(bg_base)
+  fg_colors = []
+  bg_colors = []
+  combinations.each do |c|
+    fg_colors.push c[0]
+    bg_colors.push c[1]
+  end
+  [fg_colors, bg_colors]
+end
+
+
+
 hostname = extract_hostname_from_args ARGV
-fg_color, bg_color = get_colors_by_hostname hostname, FG_COLORS, BG_COLORS
+fg_array, bg_array = generate_color_combinations FG_BASE, BG_BASE
+fg_color, bg_color = get_colors_by_hostname hostname, fg_array, bg_array
 args_str = ARGV.join ' '
 ssh_cmd  = "ssh #{args_str}"
 font     = DEFAULT_FONT

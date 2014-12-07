@@ -42,10 +42,7 @@ def extract_hostname_from_args args
   a = args.dup
   while a.size > 0
     opt = a[0]
-    unless opt.chars.first == "-"
-      opt.gsub(/^\w+@/,"")
-      return opt
-    end
+    return opt.gsub(/^\w+@/,"") unless opt.chars.first == "-"
     opt_char = opt.chars.to_a[1]
     if opts_with_arg.include? opt_char
       a.shift

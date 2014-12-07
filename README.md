@@ -11,8 +11,9 @@ SSX uses consistent colors for the same hostname, so that it would be easier to 
 Usage
 -----
 Just replace the ssh command with ssx, it uses the same syntax:
+```
 $ ssx.rb [ssh options] user@host [command]
-
+```
 TODO's
 ------
 

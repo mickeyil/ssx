@@ -80,11 +80,9 @@ def extract_hostname_from_args args
     opt = a[0]
     return opt.gsub(/^\w+@/,"") unless opt.chars.first == "-"
     opt_char = opt.chars.to_a[1]
+    a.shift
     if opts_with_arg.include? opt_char
-      a.shift
       a.shift if a.size > 0
-    else
-      a.shift
     end
   end
   nil
